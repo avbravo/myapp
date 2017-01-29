@@ -7,7 +7,6 @@ package com.avbravo.myapp.controller;
 
 import com.avbravo.myapp.ejb.PlanetasFacade;
 import com.avbravo.myapp.entity.Planetas;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,12 +23,21 @@ public class PlanetasController {
      */
     public void guardar(Planetas planetas) {
         try {
-          
-            if (planetasFacade.save(planetas)) {
-                System.out.println("Se guardo el planeta ");
+            //  Planetas t = planetasFacade.findById("idplaneta", planetas.getIdplaneta());
+
+            Planetas t = planetasFacade.find("idplaneta", planetas.getIdplaneta());
+            if (t == null) {
+
+                if (planetasFacade.save(planetas)) {
+                    System.out.println("Guardado");
+                } else {
+                    System.out.println("No se pudo guardar " + planetasFacade.getException());
+                }
             } else {
-                System.out.println("No se pudo guardar " + planetasFacade.getException());
+                System.out.println("Existe un planeta con ese idplaneta");
+
             }
+
         } catch (Exception e) {
             System.out.println("guardar() " + e.getLocalizedMessage());
         }
@@ -71,23 +79,24 @@ public class PlanetasController {
         }
         return p;
     }
-    
-    public void eliminar(String idplaneta){
+
+    public void eliminar(String idplaneta) {
         try {
             planetasFacade.delete("idplaneta", idplaneta);
         } catch (Exception e) {
-              System.out.println("eliminar() " + e.getLocalizedMessage());
+            System.out.println("eliminar() " + e.getLocalizedMessage());
         }
     }
+
     /**
-     * 
-     * @param p 
+     *
+     * @param p
      */
-    public void actualizar(Planetas p){
+    public void actualizar(Planetas p) {
         try {
             planetasFacade.update(p);
         } catch (Exception e) {
-            System.out.println("actualizar() "+e.getLocalizedMessage());
+            System.out.println("actualizar() " + e.getLocalizedMessage());
         }
     }
 }
