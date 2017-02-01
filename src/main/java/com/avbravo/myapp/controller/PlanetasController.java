@@ -8,6 +8,7 @@ package com.avbravo.myapp.controller;
 import com.avbravo.myapp.ejb.PlanetasFacade;
 import com.avbravo.myapp.entity.Planetas;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -24,9 +25,9 @@ public class PlanetasController {
     public void guardar(Planetas planetas) {
         try {
             //  Planetas t = planetasFacade.findById("idplaneta", planetas.getIdplaneta());
-
-            Planetas t = planetasFacade.find("idplaneta", planetas.getIdplaneta());
-            if (t == null) {
+            Optional<Planetas> t = planetasFacade.find("idplaneta", planetas.getIdplaneta());
+            //Planetas t = planetasFacade.find("idplaneta", planetas.getIdplaneta());
+            if (!t.isPresent()) {
 
                 if (planetasFacade.save(planetas)) {
                     System.out.println("Guardado");
@@ -34,7 +35,7 @@ public class PlanetasController {
                     System.out.println("No se pudo guardar " + planetasFacade.getException());
                 }
             } else {
-                System.out.println("Existe un planeta con ese idplaneta");
+                System.out.println("Existe un planeta con ese idplaneta ");
 
             }
 
@@ -70,9 +71,11 @@ public class PlanetasController {
     public Planetas buscar(String idplaneta) {
         Planetas p = new Planetas();
         try {
-            p = planetasFacade.find("idplaneta", idplaneta);
-            if (p == null) {
+            Optional<Planetas> p1 = planetasFacade.find("idplaneta", idplaneta);
+            if (!p1.isPresent()) {
                 System.out.println("No hay planetas con ese codigo");
+            } else {
+                p = p1.get();
             }
         } catch (Exception e) {
             System.out.println("buscar() " + e.getLocalizedMessage());
