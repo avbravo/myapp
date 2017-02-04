@@ -22,7 +22,7 @@ public class Start {
         // TODO code application logic here
         try {
             PlanetasController planetasController = new PlanetasController();
-            Planetas planetas = new Planetas("tr26", "Tierra", new Date());
+            Planetas planetas = new Planetas("tr236r", "Tierra", new Date());
             
             planetasController.guardar(planetas);
         } catch (Exception e) {
