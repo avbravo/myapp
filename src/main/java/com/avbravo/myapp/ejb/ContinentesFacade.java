@@ -5,7 +5,7 @@
  */
 package com.avbravo.myapp.ejb;
 
-import com.avbravo.jmoordb.facade.AbstractFacade;
+import com.avbravo.jmoordb.mongodb.facade.AbstractFacade;
 import com.avbravo.myapp.entity.Continentes;
 import com.avbravo.myapp.provider.MongoClientProvider;
 import com.mongodb.MongoClient;
